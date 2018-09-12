@@ -86,7 +86,7 @@ def download_flights():
     def read(fp):
         df = (pd.read_csv(fp)
                 .rename(columns=str.lower)
-                .drop('unnamed: 36', axis=1)
+                .drop('unnamed: 36', axis=1, errors='ignore')
                 .pipe(extract_city_name)
                 .pipe(time_to_datetime, ['dep_time', 'arr_time', 'crs_arr_time', 'crs_dep_time'])
                 .assign(fl_date=lambda x: pd.to_datetime(x['fl_date']),
